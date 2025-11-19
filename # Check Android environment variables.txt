@@ -1,0 +1,19 @@
+# Check Android environment variables
+Write-Host "ANDROID_HOME: $env:ANDROID_HOME"
+Write-Host "ANDROID_SDK_ROOT: $env:ANDROID_SDK_ROOT"
+
+# List Android emulators
+Write-Host "Available Android Emulators:"
+emulator list avd
+
+# Check connected devices/emulators
+Write-Host "Connected Devices/Emulators:"
+adb devices
+
+# Expo project diagnostics
+Write-Host "Expo Project Diagnostics:"
+npx expo diagnostics
+
+# Verify Android project structure
+Write-Host "Android Project Structure Check:"
+npx expo prebuild --platform android

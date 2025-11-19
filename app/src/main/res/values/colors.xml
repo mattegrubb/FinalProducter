@@ -1,0 +1,12 @@
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="blue_700">#FF1976D2</color>
+    <color name="green_700">#FF388E3C</color>
+    <color name="orange_700">#FFF57C00</color>
+</resources>
+```
+
+Note: You'll need to set up the navigation graph with the corresponding actions (action_to_user_settings, action_to_import, etc.) and destination fragments. The navigation graph should be defined in your `res/navigation/nav_graph.xml` file.
