@@ -3,19 +3,20 @@ package com.example.inventorysync.data.dao
 import androidx.room.*
 import com.example.inventorysync.data.entities.MasterItem
 import com.example.inventorysync.data.entities.ScannedItem
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InventoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBulkMasterItems(masterItems: List<MasterItem>)
+    suspend fun bulkInsertMasterItems(masterItems: List<MasterItem>)
 
     @Query("SELECT * FROM master_items WHERE articleNumber = :articleNumber LIMIT 1")
-    suspend fun findMasterItemByArticleNumber(articleNumber: String): MasterItem?
+    suspend fun getMasterItemByArticleNumber(articleNumber: String): MasterItem?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrUpdateScannedItem(scannedItem: ScannedItem)
+    suspend fun insertScannedItem(scannedItem: ScannedItem)
 
     @Query("SELECT * FROM scanned_items")
-    suspend fun getAllScannedItems(): List<ScannedItem>
+    fun getAllScannedItems(): Flow<List<ScannedItem>>
 }

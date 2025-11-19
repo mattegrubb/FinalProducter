@@ -16,4 +16,4 @@ npx expo diagnostics
 
 # Verify Android project structure
 Write-Host "Android Project Structure Check:"
-npx expo prebuild --platform android
+npx expo prebuild --platform android --dry-run

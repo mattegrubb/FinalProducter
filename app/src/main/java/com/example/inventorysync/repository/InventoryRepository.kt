@@ -37,9 +37,7 @@ class InventoryRepository @Inject constructor(
         return inventoryDao.getAllScannedItems()
     }
     
-    fun getExportData(): Flow<List<InventoryDao.ExportResult>> {
-        return inventoryDao.getExportData()
+    fun getExportData(): Flow<List<ScannedItem>> { // Fixed return type
+        return inventoryDao.getAllScannedItems()
     }
 }
-
-</html>

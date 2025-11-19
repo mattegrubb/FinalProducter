@@ -2,9 +2,13 @@ package com.example.inventorysync.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.inventorysync.databinding.FragmentMainMenuBinding
+import com.example.inventorysync.utils.ArticleImporter
 import com.example.inventorysync.utils.ExcelExporter
 import com.example.inventorysync.data.database.InventoryDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -27,10 +31,12 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        preloadArticleList()
+
         binding.scanButton.setOnClickListener {
             // Navigate to ScanFragment
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ScanFragment())
+                .replace(R.id.fragmentContainer, ScanFragment()) // Fixed ID reference
                 .addToBackStack(null)
                 .commit()
         }
@@ -38,6 +44,16 @@ class MainMenuFragment : Fragment() {
         binding.exportButton.setOnClickListener {
             exportScannedItems()
         }
+
+        binding.importButton.setOnClickListener {
+            importStandardArticles()
+        }
+    }
+
+    private fun preloadArticleList() {
+        val filePath = "C:/dev/ArtikelListaGrund.xlsx"
+        ArticleImporter.importStandardArticles(requireContext(), filePath)
+        Toast.makeText(requireContext(), "Preloading articles from $filePath", Toast.LENGTH_SHORT).show()
     }
 
     private fun exportScannedItems() {
@@ -61,6 +77,12 @@ class MainMenuFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun importStandardArticles() {
+        val filePath = "C:/dev/ArtikelListaGrund.xlsx"
+        ArticleImporter.importStandardArticles(requireContext(), filePath)
+        Toast.makeText(requireContext(), "Importing articles from $filePath", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
