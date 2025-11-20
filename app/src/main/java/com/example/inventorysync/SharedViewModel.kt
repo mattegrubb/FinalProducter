@@ -1,7 +1,7 @@
-```kotlin
 package com.example.inventorysync
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,5 +28,14 @@ class SharedViewModel(private val repository: InventoryRepository) : ViewModel()
     fun setCurrentFileName(name: String) {
         _currentFileName.value = name
     }
+
+    class Factory(private val repository: InventoryRepository) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return SharedViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
 }
-```

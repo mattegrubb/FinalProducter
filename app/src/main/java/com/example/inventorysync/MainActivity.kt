@@ -1,4 +1,3 @@
-```kotlin
 package com.example.inventorysync
 
 import android.os.Bundle
@@ -7,10 +6,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import com.example.inventorysync.repository.InventoryRepository
 import kotlinx.coroutines.flow.collect
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel: SharedViewModel by viewModels()
+    private val repository by lazy { InventoryRepository(/* Pass DAO or dependencies */) }
+    private val viewModel: SharedViewModel by viewModels {
+        SharedViewModel.Factory(repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,4 +48,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-```
